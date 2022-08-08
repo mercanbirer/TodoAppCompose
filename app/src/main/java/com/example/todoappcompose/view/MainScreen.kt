@@ -1,11 +1,8 @@
 package com.example.todoappcompose.view
 
-import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -22,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.todoappcompose.R
 import com.example.todoappcompose.model.TextList
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun MainScreen() {
@@ -30,7 +26,7 @@ fun MainScreen() {
         val context = LocalContext.current
 
         val isChecked = remember { mutableStateOf(false) }
-        val isTaskList = remember { mutableStateOf(true) }
+        val isTaskList = remember { mutableStateOf(false) }
         val textValueTitle = remember { mutableStateOf("") }
         val textValueDesc = remember { mutableStateOf("") }
         var taskList = arrayListOf<TextList>()
@@ -98,12 +94,12 @@ fun MainScreen() {
                 if (textValueTitle.value.isEmpty() && textValueDesc.value.isEmpty()) {
                     Toast.makeText(context, "Enter the Data", Toast.LENGTH_LONG).show()
                 } else {
-                    taskList = arrayListOf(
-                        TextList(
-                            textValueTitle = textValueTitle.value,
-                            textValueDesc = textValueDesc.value
-                        )
-                    )
+                    isTaskList.value= true
+                    taskList.add(TextList(
+                        textValueTitle = textValueTitle.value,
+                        textValueDesc = textValueDesc.value
+                    ))
+
                 }
             },
             modifier = Modifier
@@ -117,76 +113,72 @@ fun MainScreen() {
         ) {
             Text(stringResource(R.string.add_task))
         }
+        if (isTaskList.value){
+            Text(
+                text = stringResource(R.string.active),
+                modifier = Modifier
+                    .padding(start = 16.dp, top = 16.dp, bottom = 6.dp)
+                    .alpha(0.8f),
+                fontSize = 14.sp,
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.Bold,
+            )
 
-        Text(
-            text = stringResource(R.string.active),
-            modifier = Modifier
-                .padding(start = 16.dp, top = 16.dp, bottom = 6.dp)
-                .alpha(0.8f),
-            fontSize = 14.sp,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.Bold,
-        )
+            Divider(
+                color = colorResource(id = R.color.custom_grey),
+                thickness = 1.dp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .alpha(0.4f)
+            )
 
-        Divider(
-            color = colorResource(id = R.color.custom_grey),
-            thickness = 1.dp,
-            modifier = Modifier
-                .fillMaxWidth()
-                .alpha(0.4f)
-        )
-
-        if (isTaskList.value) {
-            LazyColumn{
-                items(3){
-                    Box {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Checkbox(
-                                checked = isChecked.value,
-                                onCheckedChange = {
-                                    isChecked.value = it
-                                },
-                                colors = CheckboxDefaults.colors(
-                                    checkedColor = colorResource(id = R.color.custom_red),
-                                    checkmarkColor = Color.White
-                                ),
-                                modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-                            )
-                            IconButton(
-                                onClick = {},
-                                modifier = Modifier.padding(end = 16.dp)
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_icons8_remove_50),
-                                    contentDescription = ""
-                                )
-                            }
-                        }
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 50.dp)
-                        ) {
-                            Text(
-                                text = textValueTitle.value,
-                                modifier = Modifier
-                                    .padding(top = 10.dp),
-                                fontSize = 14.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                            )
-
-                            Text(
-                                text = textValueDesc.value,
-                                fontSize = 12.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Normal,
-                            )
-                        }
+            Box {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Checkbox(
+                        checked = isChecked.value,
+                        onCheckedChange = {
+                            isChecked.value = it
+                        },
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = colorResource(id = R.color.custom_red),
+                            checkmarkColor = Color.White
+                        ),
+                        modifier = Modifier.padding(start = 16.dp, top = 16.dp)
+                    )
+                    IconButton(
+                        onClick = {
+                        },
+                        modifier = Modifier.padding(end = 16.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_icons8_remove_50),
+                            contentDescription = ""
+                        )
                     }
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 50.dp)
+                ) {
+                    Text(
+                        text = textValueTitle.value,
+                        modifier = Modifier
+                            .padding(top = 10.dp),
+                        fontSize = 14.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold,
+                    )
+
+                    Text(
+                        text = textValueDesc.value,
+                        fontSize = 12.sp,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Normal,
+                    )
                 }
             }
         }
