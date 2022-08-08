@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TodoAppCompose</string>
+    <string name="todo">TODO</string>
+    <string name="title">TITLE</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="new_title">Title</string>
+    <string name="new_desc">Description</string>
+    <string name="add_task">ADD TASK</string>
 </resources>
