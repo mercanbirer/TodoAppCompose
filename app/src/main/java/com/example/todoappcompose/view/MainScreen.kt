@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -136,52 +137,56 @@ fun MainScreen() {
         )
 
         if (isTaskList.value) {
-            Box {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Checkbox(
-                        checked = isChecked.value,
-                        onCheckedChange = {
-                            isChecked.value = it
-                        },
-                        colors = CheckboxDefaults.colors(
-                            checkedColor = colorResource(id = R.color.custom_red),
-                            checkmarkColor = Color.White
-                        ),
-                        modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-                    )
-                    IconButton(
-                        onClick = {},
-                        modifier = Modifier.padding(end = 16.dp)
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_icons8_remove_50),
-                            contentDescription = ""
-                        )
-                    }
-                }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 50.dp)
-                ) {
-                    Text(
-                        text = textValueTitle.value,
-                        modifier = Modifier
-                            .padding(top = 10.dp),
-                        fontSize = 14.sp,
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold,
-                    )
+            LazyColumn{
+                items(3){
+                    Box {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Checkbox(
+                                checked = isChecked.value,
+                                onCheckedChange = {
+                                    isChecked.value = it
+                                },
+                                colors = CheckboxDefaults.colors(
+                                    checkedColor = colorResource(id = R.color.custom_red),
+                                    checkmarkColor = Color.White
+                                ),
+                                modifier = Modifier.padding(start = 16.dp, top = 16.dp)
+                            )
+                            IconButton(
+                                onClick = {},
+                                modifier = Modifier.padding(end = 16.dp)
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_icons8_remove_50),
+                                    contentDescription = ""
+                                )
+                            }
+                        }
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 50.dp)
+                        ) {
+                            Text(
+                                text = textValueTitle.value,
+                                modifier = Modifier
+                                    .padding(top = 10.dp),
+                                fontSize = 14.sp,
+                                fontFamily = FontFamily.Monospace,
+                                fontWeight = FontWeight.Bold,
+                            )
 
-                    Text(
-                        text = textValueDesc.value,
-                        fontSize = 12.sp,
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Normal,
-                    )
+                            Text(
+                                text = textValueDesc.value,
+                                fontSize = 12.sp,
+                                fontFamily = FontFamily.Monospace,
+                                fontWeight = FontWeight.Normal,
+                            )
+                        }
+                    }
                 }
             }
         }
