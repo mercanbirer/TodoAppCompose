@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TodoAppCompose</string>
+    <string name="TODOApp">TodoAppCompose</string>
     <string name="todo">TODO</string>
     <string name="title">TITLE</string>
     <string name="description">DESCRIPTION</string>
