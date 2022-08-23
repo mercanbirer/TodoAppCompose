@@ -1,5 +1,15 @@
 
 l
-<app/src/main/java/com/example/todoappcompose/MainActivity.kt,3\c\3cdb4c05cd98d75bddd1275e1da734e45aebfc47
-n
->app/src/main/java/com/example/todoappcompose/model/TextList.kt,5\0\500de8843f63ac6026105d06256298b48fb5d1d1
+<app/src/test/java/com/todo/todoappcompose/ExampleUnitTest.kt,f\7\f738be011492733d11236a6d7ceab6e282146221
+k
+;app/src/main/java/com/todo/todoappcompose/ui/theme/Theme.kt,6\0\60d9ac58a984faf8b82957a7682a3ee08bf5ffd1
+k
+;app/src/main/java/com/todo/todoappcompose/ui/theme/Color.kt,d\9\d94cec4a59d974f654f647ca21674b7b854a4d68
+j
+:app/src/main/java/com/todo/todoappcompose/ui/theme/Type.kt,c\8\c897fdfbe0fbbcda332ab8d43cf50e7dabfb7548
+k
+;app/src/main/java/com/todo/todoappcompose/ui/theme/Shape.kt,9\1\91f6c0a3a1b8abbb5aac9957c784f7c4034dc4f8
+k
+;app/src/main/java/com/todo/todoappcompose/model/TextList.kt,c\5\c54f114da6deb1a5c1a7a7878b5fe11311f5c1a2
+F
+app/proguard-rules.pro,9\e\9e08934d811afe28fbc77aaa3c0d747b94348db9

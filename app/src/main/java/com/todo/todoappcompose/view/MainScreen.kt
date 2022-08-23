@@ -31,7 +31,6 @@ fun MainScreen() {
         val textValueDesc = remember { mutableStateOf("") }
         var taskList = arrayListOf<TextList>()
 
-
         Box(modifier = Modifier.background(color = Color.Gray)) {
             Text(
                 text = stringResource(R.string.todo),
@@ -94,11 +93,13 @@ fun MainScreen() {
                 if (textValueTitle.value.isEmpty() && textValueDesc.value.isEmpty()) {
                     Toast.makeText(context, "Enter the Data", Toast.LENGTH_LONG).show()
                 } else {
-                    isTaskList.value= true
-                    taskList.add(TextList(
-                        textValueTitle = textValueTitle.value,
-                        textValueDesc = textValueDesc.value
-                    ))
+                    isTaskList.value = true
+                    taskList.add(
+                        TextList(
+                            textValueTitle = textValueTitle.value,
+                            textValueDesc = textValueDesc.value
+                        )
+                    )
 
                 }
             },
@@ -113,7 +114,7 @@ fun MainScreen() {
         ) {
             Text(stringResource(R.string.add_task))
         }
-        if (isTaskList.value){
+        if (isTaskList.value) {
             Text(
                 text = stringResource(R.string.active),
                 modifier = Modifier
