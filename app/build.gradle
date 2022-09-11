@@ -11,7 +11,7 @@ android {
         applicationId "com.todo.todoappcompose"
         minSdk 21
         targetSdk 32
-        versionCode 6
+        versionCode 7
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -68,6 +68,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:2.4.0-alpha08"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
 
+    //firebase
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 }

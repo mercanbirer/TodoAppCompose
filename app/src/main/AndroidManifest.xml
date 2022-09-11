@@ -12,6 +12,7 @@
         android:label="@string/TODOApp"
         android:roundIcon="@drawable/ic_to_do_list"
         android:supportsRtl="true"
+        android:windowSoftInputMode="adjustResize|adjustPan"
         android:theme="@style/Theme.TodoAppCompose">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
