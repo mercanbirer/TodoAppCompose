@@ -1,10 +1,17 @@
 package com.todo.todoappcompose.view
 
+import android.util.Log
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -23,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.todo.todoappcompose.R
 import com.todo.todoappcompose.model.TextList
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -33,7 +41,9 @@ fun MainScreen() {
         val textValueTitle = remember { mutableStateOf(TextFieldValue("")) }
         val textValueDesc = remember { mutableStateOf(TextFieldValue("")) }
         val taskList = remember { mutableListOf<TextList>() }
+        val index = remember { mutableStateOf(0) }
         val size = remember { mutableStateOf(0) }
+        val deleteList = remember { mutableListOf<TextList>() }
 
         Box(modifier = Modifier.background(color = Color.Gray)) {
             Text(
@@ -105,7 +115,7 @@ fun MainScreen() {
                             textValueDesc = textValueDesc.value.text
                         )
                     )
-                    size.value = taskList.size
+                    index.value = taskList.size
                 }
             },
             modifier = Modifier
@@ -138,58 +148,73 @@ fun MainScreen() {
                     .alpha(0.4f)
             )
 
-            LazyColumn {
-                items(items = taskList, itemContent = { item ->
-                    Box {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Checkbox(
-                                checked = isChecked.value,
-                                onCheckedChange = {
-                                    isChecked.value = it
-                                },
-                                colors = CheckboxDefaults.colors(
-                                    checkedColor = colorResource(id = R.color.custom_red),
-                                    checkmarkColor = Color.White
-                                ),
-                                modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-                            )
-                            IconButton(
-                                onClick = {},
-                                modifier = Modifier.padding(end = 16.dp)
+            if (index.value == taskList.size) {
+                LazyColumn {
+                    itemsIndexed(
+                        items = taskList,
+                        itemContent = { _, item ->
+                            AnimatedVisibility(
+                                visible = !deleteList.contains(item),
+                                enter = expandVertically(),
+                                exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                             ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_icons8_remove_50),
-                                    contentDescription = ""
-                                )
-                            }
-                        }
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 50.dp)
-                        ) {
-                            Text(
-                                text = item.textValueTitle,
-                                modifier = Modifier
-                                    .padding(top = 10.dp),
-                                fontSize = 14.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold,
-                            )
+                                Box {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        Checkbox(
+                                            checked = isChecked.value,
+                                            onCheckedChange = {
+                                                isChecked.value = it
+                                            },
+                                            colors = CheckboxDefaults.colors(
+                                                checkedColor = colorResource(id = R.color.custom_red),
+                                                checkmarkColor = Color.White
+                                            ),
+                                            modifier = Modifier.padding(start = 16.dp, top = 16.dp)
+                                        )
+                                        IconButton(
+                                            onClick = {
+                                                deleteList.add(item)
+                                            },
+                                            modifier = Modifier.padding(end = 16.dp)
+                                        ) {
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.ic_icons8_remove_50),
+                                                contentDescription = ""
+                                            )
+                                        }
+                                    }
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(start = 50.dp)
+                                    ) {
+                                        Text(
+                                            text = item.textValueTitle,
+                                            modifier = Modifier
+                                                .padding(top = 10.dp),
+                                            fontSize = 14.sp,
+                                            fontFamily = FontFamily.Monospace,
+                                            fontWeight = FontWeight.Bold,
+                                        )
 
-                            Text(
-                                text = item.textValueDesc,
-                                fontSize = 12.sp,
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Normal,
-                            )
-                        }
-                    }
-                })
+                                        Text(
+                                            text = item.textValueDesc,
+                                            fontSize = 12.sp,
+                                            fontFamily = FontFamily.Monospace,
+                                            fontWeight = FontWeight.Normal,
+                                        )
+                                    }
+                                }
+
+                            }
+
+                        })
+                }
             }
         }
     }
 }
+
