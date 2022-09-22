@@ -25,5 +25,3 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 k
 ;app/src/main/java/com/todo/todoappcompose/model/TextList.kt,c\5\c54f114da6deb1a5c1a7a7878b5fe11311f5c1a2
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35

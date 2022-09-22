@@ -218,9 +218,9 @@ fun MainScreen() {
                 LazyColumn {
                     itemsIndexed(
                         items = taskList,
-                        itemContent = { _, item ->
+                        itemContent = { _, it ->
                             AnimatedVisibility(
-                                visible = !deleteList.contains(item),
+                                visible = !deleteList.contains(it),
                                 enter = expandVertically(),
                                 exit = shrinkVertically(animationSpec = tween(durationMillis = 500))
                             ) {
@@ -242,7 +242,7 @@ fun MainScreen() {
                                         )
                                         IconButton(
                                             onClick = {
-                                                deleteList.add(item)
+                                                deleteList.add(it)
                                                 index.value = deleteList.size
                                             },
                                             modifier = Modifier.padding(end = 16.dp)
@@ -259,7 +259,7 @@ fun MainScreen() {
                                             .padding(start = 50.dp)
                                     ) {
                                         Text(
-                                            text = item.textValueTitle,
+                                            text = it.textValueTitle,
                                             modifier = Modifier
                                                 .padding(top = 10.dp),
                                             fontSize = 14.sp,
@@ -268,7 +268,7 @@ fun MainScreen() {
                                         )
 
                                         Text(
-                                            text = item.textValueDesc,
+                                            text = it.textValueDesc,
                                             fontSize = 12.sp,
                                             fontFamily = FontFamily.Monospace,
                                             fontWeight = FontWeight.Normal,
