@@ -13,15 +13,11 @@ F
 app/proguard-rules.pro,9\e\9e08934d811afe28fbc77aaa3c0d747b94348db9
 {
 Kapp/src/androidTest/java/com/todo/todoappcompose/ExampleInstrumentedTest.kt,7\0\70819c28fd0def57884d819c2b7619d1454ecf2f
-X
-(gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 A
 gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4
 ?
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
 H
 app/google-services.json,f\d\fd8d34b142d02ec743a8efefefd2c097961666e9
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 k
 ;app/src/main/java/com/todo/todoappcompose/model/TextList.kt,c\5\c54f114da6deb1a5c1a7a7878b5fe11311f5c1a2

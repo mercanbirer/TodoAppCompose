@@ -18,7 +18,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.todo.todoappcompose.ui.theme.TodoAppComposeTheme
 import com.todo.todoappcompose.view.MainScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     var mInstal: InterstitialAd? = null
 

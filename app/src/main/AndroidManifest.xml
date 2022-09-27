@@ -2,21 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.todo.todoappcompose">
 
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/ic_to_do_list"
         android:label="@string/TODOApp"
         android:roundIcon="@drawable/ic_to_do_list"
         android:supportsRtl="true"
-        android:windowSoftInputMode="adjustResize|adjustPan"
-        android:theme="@style/Theme.TodoAppCompose">
+        android:theme="@style/Theme.TodoAppCompose"
+        android:windowSoftInputMode="adjustResize|adjustPan">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7156643920028424~5088178441"/>
+            android:value="ca-app-pub-7156643920028424~5088178441" />
         <activity
             android:name="com.todo.todoappcompose.MainActivity"
             android:exported="true"

@@ -1,5 +1,6 @@
 package com.todo.todoappcompose.view
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -25,12 +26,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.todo.todoappcompose.R
-import com.todo.todoappcompose.model.TextList
+import com.todo.todoappcompose.database.DeviceApps
+import com.todo.todoappcompose.repository.MainViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    viewModel: MainViewModel = hiltViewModel()
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         val context = LocalContext.current
 
@@ -38,11 +44,10 @@ fun MainScreen() {
         val isTaskList = remember { mutableStateOf(false) }
         val textValueTitle = remember { mutableStateOf(TextFieldValue("")) }
         val textValueDesc = remember { mutableStateOf(TextFieldValue("")) }
-        val taskList = remember { mutableListOf<TextList>() }
+        val taskList = remember { mutableListOf<DeviceApps>() }
         val index = remember { mutableStateOf(0) }
-        val deleteList = remember { mutableListOf<TextList>() }
-        val isDelete = remember { mutableStateOf(false) }
-        var newList = remember { mutableListOf<TextList>() }
+        val deleteList = remember { mutableListOf<DeviceApps>() }
+        val coroutineScope = rememberCoroutineScope()
 
         Box(modifier = Modifier.background(color = Color.Gray)) {
             Text(
@@ -109,12 +114,17 @@ fun MainScreen() {
                 } else {
                     isTaskList.value = true
                     taskList.add(
-                        TextList(
-                            textValueTitle = textValueTitle.value.text,
-                            textValueDesc = textValueDesc.value.text
+                        DeviceApps(
+                            title = textValueTitle.value.text,
+                            desc = textValueDesc.value.text
                         )
                     )
                     index.value = taskList.size
+                    coroutineScope.launch {
+                        for (i in  taskList.indices){
+                            viewModel.insertApp(taskList[i])
+                        }
+                    }
                 }
             },
             modifier = Modifier
@@ -146,7 +156,6 @@ fun MainScreen() {
                     .fillMaxWidth()
                     .alpha(0.4f)
             )
-
 
             if (index.value == taskList.size) {
                 LazyColumn {
@@ -193,7 +202,7 @@ fun MainScreen() {
                                             .padding(start = 50.dp)
                                     ) {
                                         Text(
-                                            text = item.textValueTitle,
+                                            text = item.title.toString(),
                                             modifier = Modifier
                                                 .padding(top = 10.dp),
                                             fontSize = 14.sp,
@@ -202,7 +211,7 @@ fun MainScreen() {
                                         )
 
                                         Text(
-                                            text = item.textValueDesc,
+                                            text = item.desc.toString(),
                                             fontSize = 12.sp,
                                             fontFamily = FontFamily.Monospace,
                                             fontWeight = FontWeight.Normal,
@@ -214,7 +223,7 @@ fun MainScreen() {
 
                         })
                 }
-            }else if (index.value == deleteList.size){
+            } else if (index.value == deleteList.size) {
                 LazyColumn {
                     itemsIndexed(
                         items = taskList,
@@ -259,7 +268,7 @@ fun MainScreen() {
                                             .padding(start = 50.dp)
                                     ) {
                                         Text(
-                                            text = it.textValueTitle,
+                                            text = it.title.toString(),
                                             modifier = Modifier
                                                 .padding(top = 10.dp),
                                             fontSize = 14.sp,
@@ -268,7 +277,7 @@ fun MainScreen() {
                                         )
 
                                         Text(
-                                            text = it.textValueDesc,
+                                            text = it.desc.toString(),
                                             fontSize = 12.sp,
                                             fontFamily = FontFamily.Monospace,
                                             fontWeight = FontWeight.Normal,
