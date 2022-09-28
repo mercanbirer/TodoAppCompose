@@ -49,7 +49,7 @@ fun MainScreen(
         val textValueDesc = remember { mutableStateOf(TextFieldValue("")) }
         var taskList = remember { mutableListOf<DeviceApps>() }
         val index = remember { mutableStateOf(0) }
-        val deleteList = remember { mutableListOf<DeviceApps>() }
+        var deleteList = remember { mutableListOf<DeviceApps>() }
         val coroutineScope = rememberCoroutineScope()
         val lifecycleOwner = LocalLifecycleOwner.current
         val user = viewModel.user
