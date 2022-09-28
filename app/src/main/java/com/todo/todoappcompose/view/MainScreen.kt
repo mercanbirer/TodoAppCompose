@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -42,12 +43,29 @@ fun MainScreen(
 
         val isChecked = remember { mutableStateOf(false) }
         val isTaskList = remember { mutableStateOf(false) }
+        val isClick = remember { mutableStateOf(false) }
+
         val textValueTitle = remember { mutableStateOf(TextFieldValue("")) }
         val textValueDesc = remember { mutableStateOf(TextFieldValue("")) }
-        val taskList = remember { mutableListOf<DeviceApps>() }
+        var taskList = remember { mutableListOf<DeviceApps>() }
         val index = remember { mutableStateOf(0) }
         val deleteList = remember { mutableListOf<DeviceApps>() }
         val coroutineScope = rememberCoroutineScope()
+        val lifecycleOwner = LocalLifecycleOwner.current
+        val user = viewModel.user
+
+        LaunchedEffect(Unit, block = {
+            viewModel.getList()
+
+            user.observe(lifecycleOwner){
+                if (it.isNotEmpty()){
+                    isTaskList.value = true
+                    isClick.value = true
+                    taskList = it.toMutableList()
+                }
+            }
+
+        })
 
         Box(modifier = Modifier.background(color = Color.Gray)) {
             Text(
@@ -156,6 +174,13 @@ fun MainScreen(
                     .fillMaxWidth()
                     .alpha(0.4f)
             )
+
+            user.observe(lifecycleOwner){
+                if (it.isNotEmpty()){
+                    isTaskList.value = true
+                    taskList = it.toMutableList()
+                }
+            }
 
             if (index.value == taskList.size) {
                 LazyColumn {
