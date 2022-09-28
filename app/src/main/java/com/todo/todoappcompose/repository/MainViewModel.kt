@@ -12,6 +12,7 @@ import com.todo.todoappcompose.database.DeviceApps
 import com.todo.todoappcompose.di.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -43,5 +44,12 @@ class MainViewModel @ExperimentalCoroutinesApi
             }
         }
     }
+
+    fun deleteApp(packageName: DeviceApps) {
+        CoroutineScope(Dispatchers.IO).launch {
+            daoRepo.removeApp(packageName)
+        }
+    }
+
 
 }

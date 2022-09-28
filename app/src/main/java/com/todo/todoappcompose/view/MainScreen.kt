@@ -57,11 +57,9 @@ fun MainScreen(
         LaunchedEffect(Unit, block = {
             viewModel.getList()
 
-            user.observe(lifecycleOwner){
-                if (it.isNotEmpty()){
+            user.observe(lifecycleOwner) {
+                if (it.isNotEmpty()) {
                     isTaskList.value = true
-                    isClick.value = true
-                    taskList = it.toMutableList()
                 }
             }
 
@@ -139,7 +137,7 @@ fun MainScreen(
                     )
                     index.value = taskList.size
                     coroutineScope.launch {
-                        for (i in  taskList.indices){
+                        for (i in taskList.indices) {
                             viewModel.insertApp(taskList[i])
                         }
                     }
@@ -175,8 +173,8 @@ fun MainScreen(
                     .alpha(0.4f)
             )
 
-            user.observe(lifecycleOwner){
-                if (it.isNotEmpty()){
+            user.observe(lifecycleOwner) {
+                if (it.isNotEmpty()) {
                     isTaskList.value = true
                     taskList = it.toMutableList()
                 }
@@ -212,6 +210,9 @@ fun MainScreen(
                                             onClick = {
                                                 deleteList.add(item)
                                                 index.value = deleteList.size
+                                                coroutineScope.launch {
+                                                    viewModel.deleteApp(item)
+                                                }
                                             },
                                             modifier = Modifier.padding(end = 16.dp)
                                         ) {
@@ -278,6 +279,9 @@ fun MainScreen(
                                             onClick = {
                                                 deleteList.add(it)
                                                 index.value = deleteList.size
+                                                coroutineScope.launch {
+                                                    viewModel.deleteApp(it)
+                                                }
                                             },
                                             modifier = Modifier.padding(end = 16.dp)
                                         ) {

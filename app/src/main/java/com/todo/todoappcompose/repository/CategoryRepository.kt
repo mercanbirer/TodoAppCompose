@@ -11,7 +11,9 @@ class CategoryRepository @Inject constructor(
 ) {
     suspend fun insertApplication(apps: DeviceApps) = dao.insertApplication(apps)
 
-    suspend fun list(): Flow<List<DeviceApps>> {
+    fun list(): Flow<List<DeviceApps>> {
         return dao.list()
     }
+    fun removeApp(packageName: DeviceApps) = dao.deleteApp(packageName)
+
 }
