@@ -43,7 +43,6 @@ fun MainScreen(
 
         val isChecked = remember { mutableStateOf(false) }
         val isTaskList = remember { mutableStateOf(false) }
-        val isClick = remember { mutableStateOf(false) }
 
         val textValueTitle = remember { mutableStateOf(TextFieldValue("")) }
         val textValueDesc = remember { mutableStateOf(TextFieldValue("")) }
@@ -137,9 +136,12 @@ fun MainScreen(
                     )
                     index.value = taskList.size
                     coroutineScope.launch {
-                        for (i in taskList.indices) {
-                            viewModel.insertApp(taskList[i])
-                        }
+                        viewModel.insertApp(
+                            DeviceApps(
+                                title = textValueTitle.value.text,
+                                desc = textValueDesc.value.text
+                            )
+                        )
                     }
                 }
             },
@@ -152,6 +154,7 @@ fun MainScreen(
                 contentColor = colorResource(id = R.color.custom_red)
             )
         ) {
+
             Text(stringResource(R.string.add_task))
         }
         if (isTaskList.value) {
@@ -179,6 +182,7 @@ fun MainScreen(
                     taskList = it.toMutableList()
                 }
             }
+
 
             if (index.value == taskList.size) {
                 LazyColumn {
