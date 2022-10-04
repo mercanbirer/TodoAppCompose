@@ -1,10 +1,6 @@
 
 l
 <app/src/test/java/com/todo/todoappcompose/ExampleUnitTest.kt,f\7\f738be011492733d11236a6d7ceab6e282146221
-k
-;app/src/main/java/com/todo/todoappcompose/ui/theme/Theme.kt,6\0\60d9ac58a984faf8b82957a7682a3ee08bf5ffd1
-k
-;app/src/main/java/com/todo/todoappcompose/ui/theme/Color.kt,d\9\d94cec4a59d974f654f647ca21674b7b854a4d68
 j
 :app/src/main/java/com/todo/todoappcompose/ui/theme/Type.kt,c\8\c897fdfbe0fbbcda332ab8d43cf50e7dabfb7548
 k
